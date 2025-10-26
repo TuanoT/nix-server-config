@@ -85,13 +85,23 @@
   services.samba = {
     enable = true;
     openFirewall = true;
-    settings."storage" = {
-      path = "/mnt/storage";
-      browseable = true;
-      readOnly = false;
-      guestOk = true; # allow anyone on the network to access
-      forceUser = "tom";
-      forceGroup = "users";
+    settings = {
+      global = {
+        mapToGuest = "bad user";
+        "guest account" = "nobody";
+        "server min protocol" = "SMB2";
+        "server max protocol" = "SMB3";
+        security = "user";
+      };
+
+      storage = {
+        path = "/mnt/storage";
+        browseable = true;
+        readOnly = false;
+        guestOk = true; # allow anyone on the network to access
+        forceUser = "tom";
+        forceGroup = "users";
+      };
     };
   };
 
