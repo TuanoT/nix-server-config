@@ -12,7 +12,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "PRIME-B550M-A";
+  networking.hostName = "NIXOS";
 
   # Enable networking
   networking.networkmanager.enable = true;
