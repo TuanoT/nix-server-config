@@ -61,6 +61,9 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
+  # Vscode server
+  services.vscode-server.enable = true;
+
   #FIX ME
   networking.firewall.enable = false;
 
