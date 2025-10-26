@@ -74,6 +74,7 @@
     445 # Samba
   ];
   networking.firewall.allowedUDPPorts = [22 137 138];
+  networking.networkmanager.dns = "none";
   networking.nameservers = ["1.1.1.1" "8.8.8.8"];
 
   # Mount external storage drive
