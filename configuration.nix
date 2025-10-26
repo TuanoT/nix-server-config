@@ -62,10 +62,36 @@
   services.openssh.enable = true;
 
   # Vscode server
-  services.vscode-server.enable = true;
+  #services.vscode-server.enable = true;
 
   #FIX ME
-  networking.firewall.enable = false;
+  networking.firewall.enable = true;
+  networking.firewall.allowedTCPPorts = [
+    22 # SSH
+    80 # HTTP
+    443 # HTTPs
+    139 # Samba
+    445 # Samba
+  ];
+  networking.firewall.allowedUDPPorts = [22 137 138];
+
+  # Mount external storage drive
+  fileSystems."/mnt/storage" = {
+    device = "/dev/disk/by-uuid/14c236b-15db-4dff-b9d8-ef3b4d45b99c";
+    fsType = "ext4";
+    options = ["defaults"];
+  };
+
+  # Enable Samba
+  services.samba = {
+    enable = true;
+    shares."storage" = {
+      path = "/mnt/storage";
+      browseable = true;
+      readOnly = false;
+      guestOk = true; # allow anyone on the network to access
+    };
+  };
 
   system.stateVersion = "25.05";
 }
