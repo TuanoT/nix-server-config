@@ -88,10 +88,13 @@
     settings = {
       global = {
         mapToGuest = "bad user";
+        "server string" = "Belmar Server";
+        "netbios name" = "BELMAR-SERVER";
         "guest account" = "nobody";
         "server min protocol" = "SMB2";
         "server max protocol" = "SMB3";
         security = "user";
+        "wins support" = "yes";
       };
 
       storage = {
