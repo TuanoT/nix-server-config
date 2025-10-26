@@ -84,7 +84,8 @@
   # Enable Samba
   services.samba = {
     enable = true;
-    shares."storage" = {
+    openFirewall = true;
+    settings."storage" = {
       path = "/mnt/storage";
       browseable = true;
       readOnly = false;
