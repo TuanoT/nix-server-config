@@ -91,6 +91,7 @@
       readOnly = false;
       guestOk = true; # allow anyone on the network to access
       forceUser = "tom";
+      forceGroup = "users";
     };
   };
 
