@@ -77,9 +77,8 @@
 
   # Mount external storage drive
   fileSystems."/mnt/storage" = {
-    device = "/dev/disk/by-uuid/14c236b-15db-4dff-b9d8-ef3b4d45b99c";
+    device = "UUID=89a162db-04b3-4f60-9327-c43096f27da5";
     fsType = "ext4";
-    options = ["defaults"];
   };
 
   # Enable Samba
