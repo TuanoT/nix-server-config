@@ -46,7 +46,7 @@
     isNormalUser = true;
     description = "Tom Purcell";
     extraGroups = ["networkmanager" "wheel"];
-    hashedPasswordFile = /etc/nixos/tom.passwd;
+    hashedPasswordFile = "/etc/nixos/tom.passwd";
     packages = with pkgs; [];
   };
 
