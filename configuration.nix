@@ -12,10 +12,17 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Netwoking
   networking.hostName = "NIXOS";
-
-  # Enable networking
   networking.networkmanager.enable = true;
+  networking.firewall.enable = true;
+  networking.firewall.allowedTCPPorts = [
+    22 # SSH
+    80 # HTTP
+    443 # HTTPs
+  ];
+  networking.firewall.allowedUDPPorts = [137 138];
+  networking.nameservers = ["1.1.1.1" "8.8.8.8"];
 
   # Set your time zone.
   time.timeZone = "Australia/Melbourne";
@@ -52,7 +59,6 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-
   environment.systemPackages = with pkgs; [
     vscode
     git
@@ -63,19 +69,6 @@
 
   # Vscode server
   services.vscode-server.enable = true;
-
-  #FIX ME
-  networking.firewall.enable = true;
-  networking.firewall.allowedTCPPorts = [
-    22 # SSH
-    80 # HTTP
-    443 # HTTPs
-    139 # Samba
-    445 # Samba
-  ];
-  networking.firewall.allowedUDPPorts = [22 137 138];
-  networking.networkmanager.dns = "none";
-  networking.nameservers = ["1.1.1.1" "8.8.8.8"];
 
   # Mount external storage drive
   fileSystems."/mnt/storage" = {
