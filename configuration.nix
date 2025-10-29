@@ -62,6 +62,7 @@
   environment.systemPackages = with pkgs; [
     vscode
     git
+    mergerfs
   ];
 
   # Enable the OpenSSH daemon.
@@ -89,11 +90,11 @@
   };
 
   # Combine backups into one folder using mergerfs
-  # fileSystems."/mnt/backup" = {
-  #   device = "mergerfs#/mnt/backup/hdd1:/mnt/backup/hdd2";
-  #   fsType = "fuse.mergerfs";
-  #   options = [ "defaults" "allow_other" "use_ino" "moveonenospc=true" ];
-  # };
+  fileSystems."/mnt/backup" = {
+    device = "mergerfs#/mnt/backup/hdd1:/mnt/backup/hdd2";
+    fsType = "fuse.mergerfs";
+    options = [ "defaults" "allow_other" "use_ino" "moveonenospc=true" ];
+  };
 
   # Enable Samba
   services.samba = {
