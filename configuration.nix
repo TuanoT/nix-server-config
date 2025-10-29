@@ -122,13 +122,14 @@
         forceGroup = "users";
       };
 
-      # Share the backup pool (read-only)
+      # Share the backup pool
       backup = {
         path = "/mnt/backup";
         browseable = true;
-        readOnly = true;
+        readOnly = false;
         guestOk = true;
-        validUsers = ["tom"];
+        forceUser = "tom";
+        forceGroup = "users";
       };
     };
   };
