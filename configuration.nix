@@ -78,23 +78,22 @@
 
   # Mount backup drive 1
   fileSystems."/mnt/backup/hdd1" = {
-    device = "/dev/disk/by-label/backup1";
+    device = "UUID=a079f3b5-c2b0-4607-9cb4-5d559cf3d48f";
     fsType = "ext4";
   };
 
   # Mount backup drive 2
   fileSystems."/mnt/backup/hdd2" = {
-    device = "/dev/disk/by-label/backup2";
+    device = "UUID=6fefa947-96a8-49f8-9fe9-4275b4f4360a";
     fsType = "ext4";
   };
 
-
   # Combine backups into one folder using mergerfs
-  fileSystems."/mnt/backup" = {
-    device = "mergerfs#/mnt/backup/hdd1:/mnt/backup/hdd2";
-    fsType = "fuse.mergerfs";
-    options = [ "defaults" "allow_other" "use_ino" "moveonenospc=true" ];
-  };
+  # fileSystems."/mnt/backup" = {
+  #   device = "mergerfs#/mnt/backup/hdd1:/mnt/backup/hdd2";
+  #   fsType = "fuse.mergerfs";
+  #   options = [ "defaults" "allow_other" "use_ino" "moveonenospc=true" ];
+  # };
 
   # Enable Samba
   services.samba = {
