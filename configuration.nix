@@ -127,7 +127,7 @@
         path = "/mnt/backup";
         browseable = true;
         readOnly = true;
-        guestOk = false;
+        guestOk = true;
         validUsers = ["tom"];
       };
     };
