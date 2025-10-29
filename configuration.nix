@@ -48,7 +48,7 @@
     variant = "";
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # Define a user account.
   users.users.tom = {
     isNormalUser = true;
     description = "Tom Purcell";
@@ -70,10 +70,30 @@
   # Vscode server
   services.vscode-server.enable = true;
 
-  # Mount external storage drive
+  # Mount storage drive
   fileSystems."/mnt/storage" = {
     device = "UUID=89a162db-04b3-4f60-9327-c43096f27da5";
     fsType = "ext4";
+  };
+
+  # Mount backup drive 1
+  fileSystems."/mnt/backup/hdd1" = {
+    device = "/dev/disk/by-label/backup1";
+    fsType = "ext4";
+  };
+
+  # Mount backup drive 2
+  fileSystems."/mnt/backup/hdd2" = {
+    device = "/dev/disk/by-label/backup2";
+    fsType = "ext4";
+  };
+
+
+  # Combine backups into one folder using mergerfs
+  fileSystems."/mnt/backup" = {
+    device = "mergerfs#/mnt/backup/hdd1:/mnt/backup/hdd2";
+    fsType = "fuse.mergerfs";
+    options = [ "defaults" "allow_other" "use_ino" "moveonenospc=true" ];
   };
 
   # Enable Samba
@@ -92,6 +112,7 @@
         "wins support" = "yes";
       };
 
+      # Share the main storage
       storage = {
         path = "/mnt/storage";
         browseable = true;
@@ -99,6 +120,15 @@
         guestOk = true; # allow anyone on the network to access
         forceUser = "tom";
         forceGroup = "users";
+      };
+
+      # Share the backup pool (read-only)
+      backup = {
+        path = "/mnt/backup";
+        browseable = true;
+        readOnly = true;
+        guestOk = false;
+        validUsers = ["tom"];
       };
     };
   };
