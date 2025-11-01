@@ -102,10 +102,6 @@
     enable = true;
     openFirewall = true;
 
-    # Ensure Samba waits for the merged backup volume
-    requires = [ "mnt-backup.mount" ];
-    after = [ "mnt-backup.mount" ];
-
     settings = {
       global = {
         mapToGuest = "bad user";
@@ -138,6 +134,13 @@
         forceGroup = "users";
       };
     };
+  };
+
+
+  # Make Samba wait for mergerfs mount
+  systemd.services.samba = {
+    requires = [ "mnt-backup.mount" ];
+    after = [ "mnt-backup.mount" ];
   };
 
   system.stateVersion = "25.05";
