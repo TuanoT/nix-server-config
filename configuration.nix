@@ -52,7 +52,7 @@
   users.users.tom = {
     isNormalUser = true;
     description = "Tom Purcell";
-    extraGroups = ["networkmanager" "wheel"];
+    extraGroups = ["networkmanager" "wheel" "docker"];
     hashedPasswordFile = "/etc/nixos/tom.passwd";
     packages = with pkgs; [];
   };
@@ -135,12 +135,6 @@
     };
   };
 
-  # Enable Docker daemon
-  virtualisation.docker = {
-    enable = true; 
-    enableUser = true; 
-  };
-
   systemd.timers.backup-storage = {
     description = "Run storage backup every 12 hours";
     wantedBy = [ "timers.target" ];
@@ -148,6 +142,11 @@
       OnCalendar = "0/12:00:00";
       Persistent = true;
     };
+  };
+
+  # Enable Docker daemon
+  virtualisation.docker = {
+    enable = true;
   };
 
   system.stateVersion = "25.05";
