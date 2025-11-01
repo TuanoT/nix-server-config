@@ -113,11 +113,33 @@
       backup = {
         path = "/mnt/backup";
         browseable = true;
-        readOnly = false;
+        readOnly = true;
         guestOk = true;
         forceUser = "tom";
         forceGroup = "users";
       };
+    };
+  };
+
+  # Automated storage backup using rsync every 12 hours
+  systemd.services.backup-storage = {
+    description = "Backup /mnt/storage to /mnt/backup";
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = ''
+        ${pkgs.rsync}/bin/rsync -a --delete --info=progress2 /mnt/storage/ /mnt/backup/
+      '';
+      Nice = 10;
+      IOSchedulingClass = "idle";
+    };
+  };
+
+  systemd.timers.backup-storage = {
+    description = "Run storage backup every 12 hours";
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "0/12:00:00";
+      Persistent = true;
     };
   };
 
