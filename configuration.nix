@@ -94,12 +94,18 @@
     device = "mergerfs#/mnt/backup/hdd1:/mnt/backup/hdd2";
     fsType = "fuse.mergerfs";
     options = [ "defaults" "allow_other" "use_ino" "moveonenospc=true" ];
+    neededForBoot = true;
   };
 
   # Enable Samba
   services.samba = {
     enable = true;
     openFirewall = true;
+
+    # Ensure Samba waits for the merged backup volume
+    requires = [ "mnt-backup.mount" ];
+    after = [ "mnt-backup.mount" ];
+
     settings = {
       global = {
         mapToGuest = "bad user";
@@ -117,7 +123,7 @@
         path = "/mnt/storage";
         browseable = true;
         readOnly = false;
-        guestOk = true; # allow anyone on the network to access
+        guestOk = true;
         forceUser = "tom";
         forceGroup = "users";
       };
