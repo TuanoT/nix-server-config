@@ -62,6 +62,7 @@
   environment.systemPackages = with pkgs; [
     vscode
     git
+    docker
   ];
 
   # Enable the OpenSSH daemon.
@@ -132,6 +133,12 @@
       Nice = 10;
       IOSchedulingClass = "idle";
     };
+  };
+
+  # Enable Docker daemon
+  virtualisation.docker = {
+    enable = true; 
+    enableUser = true; 
   };
 
   systemd.timers.backup-storage = {
