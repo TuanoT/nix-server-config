@@ -83,6 +83,12 @@
     fsType = "ext4";
   };
 
+  # Mount backup drive 2
+  fileSystems."/mnt/games-backup" = {
+    device = "UUID=a079f3b5-c2b0-4607-9cb4-5d559cf3d48f";
+    fsType = "ext4";
+  };
+
   # Enable Samba
   services.samba = {
     enable = true;
@@ -113,6 +119,16 @@
       # Share the backup storage
       backup = {
         path = "/mnt/backup";
+        browseable = true;
+        readOnly = true;
+        guestOk = true;
+        forceUser = "tom";
+        forceGroup = "users";
+      };
+
+      # Share the backup storage 2
+      backup = {
+        path = "/mnt/games-backup";
         browseable = true;
         readOnly = true;
         guestOk = true;
