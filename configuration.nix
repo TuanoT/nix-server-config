@@ -84,7 +84,7 @@
   };
 
   # Mount backup drive 2
-  fileSystems."/mnt/games-backup" = {
+  fileSystems."/mnt/gameserverbackup" = {
     device = "UUID=a079f3b5-c2b0-4607-9cb4-5d559cf3d48f";
     fsType = "ext4";
   };
@@ -128,7 +128,7 @@
 
       # Share the backup storage 2
       backup = {
-        path = "/mnt/games-backup";
+        path = "/mnt/gameserverbackup";
         browseable = true;
         readOnly = true;
         guestOk = true;
